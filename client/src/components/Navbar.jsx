@@ -5,13 +5,13 @@ import { IoLogIn } from 'react-icons/io5'
 
 const Navbar = () => {
   return (
-    <nav className='bg-black text-white p-4'>
+    <nav className='bg-black text-white p-4 px-8'>
       <div className='container mx-auto flex items-center'>
         <Link to='/' className='text-2xl mr-auto'>
           SyncCart
         </Link>
 
-        <form>
+        <form className='xs: hidden'>
           <input
             type='text'
             placeholder='Search'
