@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
-import products from '../products'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllProducts } from '../features/products/productsThunks'
+import Error from './Error'
 
 const Landing = () => {
+  const dispatch = useDispatch()
+  const { products, isLoading, isError } = useSelector(store => store.products)
+
+  useEffect(() => {
+    dispatch(getAllProducts())
+  }, [])
+
+  if (isError) {
+    return <Error />
+  }
+
   const productList = products.map(product => {
     return <ProductCard key={product._id} product={product} />
   })
