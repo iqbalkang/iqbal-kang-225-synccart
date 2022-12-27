@@ -4,15 +4,25 @@ const { StatusCodes } = require('http-status-codes')
 const AppError = require('../utils/appError')
 
 const postCart = asyncHandler(async (req, res, next) => {
-  const signedInUser = req.user._id
+  if (req.body.length === 0) {
+    const cart = await Cart.find()
 
-  const cart = await Cart.findOne({ belongsTo: req.params.id })
-  console.log(res.body)
+    return res.status(StatusCodes.OK).json({
+      status: 'success',
+      cart,
+    })
+  }
 
-  // const cart = await Cart.create({
-  //   belongsTo: signedInUser,
-  //   items: req.body,
-  // })
+  await Cart.deleteCart()
+
+  for (const item of req.body) {
+    const { productId, userId, quantity, price } = item
+
+    const cart = new Cart(productId, userId, quantity, price)
+    await cart.save()
+  }
+
+  const cart = await Cart.find()
 
   res.status(StatusCodes.OK).json({
     status: 'success',

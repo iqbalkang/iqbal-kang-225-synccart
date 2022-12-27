@@ -3,6 +3,7 @@ import ProductCard from '../components/ProductCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProducts } from '../features/products/productsThunks'
 import Error from './Error'
+import Heading from '../components/Heading'
 
 const Landing = () => {
   const dispatch = useDispatch()
@@ -17,14 +18,12 @@ const Landing = () => {
   }
 
   const productList = products.map(product => {
-    return <ProductCard key={product._id} product={product} />
+    return <ProductCard key={product.product_id} product={product} />
   })
 
   return (
     <section className='text-black'>
-      <h2 className='text-center text-4xl font-bold pb-6'>
-        <span className='border-b-4 border-red-500'>Latest</span> Products
-      </h2>
+      <Heading span='latest' text='products' />
 
       <div className='flex justify-center gap-8 md:gap-12 flex-wrap'>{productList}</div>
     </section>

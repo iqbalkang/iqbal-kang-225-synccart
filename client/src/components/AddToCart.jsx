@@ -5,13 +5,13 @@ import { getCartProduct } from '../features/cart/cartThunks'
 import { selectedQuantityHandler } from '../features/cart/cartSlice'
 
 const AddToCart = ({ product }) => {
-  const { _id: id, countInStock, price } = product
+  const { product_id: id, stock, price } = product
 
   const dispatch = useDispatch()
 
   const selectHandler = e => dispatch(selectedQuantityHandler(+e.target.value))
 
-  const renderOptions = [...Array(countInStock)].map((_, index) => {
+  const renderOptions = [...Array(stock)].map((_, index) => {
     return (
       <option key={index} value={index + 1}>
         {index + 1}
@@ -27,13 +27,13 @@ const AddToCart = ({ product }) => {
     <article className='border-2'>
       <div className='grid grid-cols-2 border-b-2 p-2'>
         <p>Price</p>
-        <p>{price}</p>
+        <p>${price}</p>
       </div>
       <div className='grid grid-cols-2 border-b-2 p-2'>
         <p>Status</p>
-        {countInStock > 0 ? <p>In stock</p> : <p className='text-red-500 text-sm mt-1'>Out of stock</p>}
+        {stock > 0 ? <p>In stock</p> : <p className='text-red-500 text-sm mt-1'>Out of stock</p>}
       </div>
-      {countInStock > 0 && (
+      {stock > 0 && (
         <div className='grid grid-cols-2 border-b-2 p-2'>
           <p>Quantity</p>
           <select onChange={selectHandler}>{renderOptions}</select>
@@ -42,7 +42,7 @@ const AddToCart = ({ product }) => {
       <button
         onClick={addToCartHandler}
         className='p-4 bg-black text-white w-full min-w-[300px] cursor-pointer disabled:bg-black/50 disabled:cursor-auto'
-        disabled={countInStock === 0}
+        disabled={stock === 0}
       >
         Add to cart
       </button>

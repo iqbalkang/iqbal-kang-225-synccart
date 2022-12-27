@@ -1,51 +1,22 @@
-const mongoose = require('mongoose')
+const db = require('../utils/connectSQL')
 
-const productSchema = new mongoose.Schema(
-  {
-    user: {
-      type: mongoose.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    brand: {
-      type: String,
-      required: true,
-    },
-    category: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
-    countInStock: {
-      type: Number,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      default: 0,
-    },
-    numReviews: {
-      type: Number,
-      default: 0,
-    },
-  },
-  {
-    timestamps: true,
+class Product {
+  constructor(name, description, rating, stock) {
+    this.name = name
+    this.description = description
+    this.rating = rating
+    this.stock = stock
   }
-)
 
-module.exports = mongoose.model('Product', productSchema)
+  static async find() {
+    const [products] = await db.execute('SELECT * FROM products')
+    return products
+  }
+
+  static async findById(id) {
+    const [product] = await db.execute(`SELECT * FROM products where product_id = '${id}'`)
+    return product[0]
+  }
+}
+
+module.exports = Product

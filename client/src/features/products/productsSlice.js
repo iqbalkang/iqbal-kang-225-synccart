@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getLocalStorage, setLocalStorage } from '../../utils/localStorage'
 import { getAllProducts, getSingleProduct } from './productsThunks'
 
 const initialState = {
   isLoading: false,
-  products: [],
+  products: getLocalStorage('products'),
   productDetails: null,
   isError: null,
 }
@@ -21,6 +22,7 @@ const productSlice = createSlice({
       .addCase(getAllProducts.fulfilled, (state, { payload }) => {
         state.isLoading = false
         state.products = payload
+        setLocalStorage('products', payload)
       })
       .addCase(getAllProducts.rejected, (state, { payload }) => {
         state.isLoading = false

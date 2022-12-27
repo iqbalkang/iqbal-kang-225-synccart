@@ -2,7 +2,7 @@ import React from 'react'
 import Rating from './Rating'
 
 const ProductDetail = ({ product }) => {
-  const { _id: id, image, brand, category, countInStock, price, rating, description, name, numReviews } = product
+  const { product_id: id, image, price, rating, description, name, num_reviews: numReviews } = product
 
   return (
     <article className='grid xl:grid-cols-2 gap-8'>

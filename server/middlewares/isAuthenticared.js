@@ -13,9 +13,11 @@ const isAuthenticated = asyncHandler(async (req, res, next) => {
   const token = authHeader.split(' ')[1]
 
   const isVerified = jwt.verify(token, process.env.SECRET_KEY)
-  const user = await User.findOne({ _id: isVerified.id })
+  if (!isVerified) return next(new AppError('Invalid token', StatusCodes.UNAUTHORIZED))
 
-  req.user = user
+  const user = await User.findOne(isVerified.email)
+
+  req.user = user[0]
   next()
 })
 

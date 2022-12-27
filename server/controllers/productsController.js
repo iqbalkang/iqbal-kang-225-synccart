@@ -1,10 +1,10 @@
 const asyncHandler = require('express-async-handler')
-const Product = require('../models/ProductModel')
 const { StatusCodes } = require('http-status-codes')
 const AppError = require('../utils/appError')
+const Product = require('../models/ProductModel')
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
-  const products = await Product.find({})
+  const products = await Product.find()
 
   res.status(StatusCodes.OK).json({
     status: 'success',

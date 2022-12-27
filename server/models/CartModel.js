@@ -1,38 +1,30 @@
-const mongoose = require('mongoose')
+const db = require('../utils/connectSQL')
 
-const cartSchema = new mongoose.Schema({
-  items: [
-    {
-      productId: {
-        type: String,
-        required: [true, 'Product id is missing'],
-      },
-      name: {
-        type: String,
-        required: [true, 'Product name is missing'],
-      },
-      price: {
-        type: Number,
-        required: [true, 'Product price is missing'],
-      },
-      image: {
-        type: String,
-        required: [true, 'Product image is missing'],
-      },
-      quantity: {
-        type: Number,
-        required: [true, 'Product quantity is missing'],
-      },
-      countInStock: {
-        type: Number,
-        required: [true, 'Product count in stock is missing'],
-      },
-    },
-  ],
-  belongsTo: {
-    type: mongoose.Types.ObjectId,
-    ref: 'User',
-  },
-})
+class Cart {
+  constructor(productId, userId, quantity, price) {
+    this.productId = productId
+    this.userId = userId
+    this.quantity = quantity
+    this.price = price
+  }
 
-module.exports = mongoose.model('Cart', cartSchema)
+  static async find() {
+    const [cart] = await db.execute(`SELECT product_id as productId, price, quantity, price FROM carts`)
+    return cart
+  }
+
+  static async deleteCart() {
+    await db.execute('DELETE FROM carts')
+  }
+
+  async save() {
+    await db.execute('INSERT INTO carts (product_Id, user_Id, quantity, price) values(?, ?, ?, ?)', [
+      this.productId,
+      this.userId,
+      this.quantity,
+      this.price,
+    ])
+  }
+}
+
+module.exports = Cart

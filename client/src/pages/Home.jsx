@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import Error from '../components/Error'
 import Navbar from '../components/Navbar'
 
 const Home = () => {
