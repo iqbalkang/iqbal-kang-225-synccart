@@ -1,9 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import Cart from './pages/Cart'
+import EditProduct from './pages/EditProduct'
+import EditUser from './pages/EditUser'
 import Home from './pages/Home'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import { ProductPage } from './pages/ProductPage'
+import Products from './pages/Products'
 import Register from './pages/Register'
 import Users from './pages/Users'
 
@@ -16,7 +19,10 @@ function App() {
         <Route path='cart' element={<Cart />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
-        <Route path='users' element={<Users />} />
+        <Route path='admin/users' element={<Users />} />
+        <Route path='admin/edit' element={<EditUser />} />
+        <Route path='admin/products' element={<Products />} />
+        <Route path='admin/products/edit' element={<EditProduct />} />
       </Route>
     </Routes>
   )

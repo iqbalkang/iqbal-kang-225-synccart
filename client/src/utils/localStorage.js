@@ -1,12 +1,16 @@
 const getLocalStorage = item => {
-  const cart = JSON.parse(localStorage.getItem(item))
+  const retrievedItem = JSON.parse(localStorage.getItem(item))
 
-  if (!cart) return []
-  return cart
+  if (!retrievedItem) return item === 'user' ? null : []
+  return retrievedItem
 }
 
 const setLocalStorage = (name, items) => {
   localStorage.setItem(name, JSON.stringify(items))
 }
 
-export { getLocalStorage, setLocalStorage }
+const removeLocalStorage = item => {
+  localStorage.removeItem(item)
+}
+
+export { getLocalStorage, setLocalStorage, removeLocalStorage }

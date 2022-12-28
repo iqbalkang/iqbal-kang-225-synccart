@@ -7,11 +7,20 @@ const initialState = {
   products: getLocalStorage('products'),
   productDetails: null,
   isError: null,
+  productEdit: null,
 }
 
 const productSlice = createSlice({
   name: 'product',
   initialState,
+  reducers: {
+    productEdit(state, { payload }) {
+      state.productEdit = payload
+    },
+    resetEditProduct(state, { payload }) {
+      state.productEdit = null
+    },
+  },
   extraReducers: builder => {
     builder
 
@@ -44,4 +53,5 @@ const productSlice = createSlice({
   },
 })
 
+export const { productEdit, resetEditProduct } = productSlice.actions
 export default productSlice.reducer

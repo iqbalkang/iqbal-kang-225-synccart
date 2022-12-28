@@ -1,41 +1,80 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Heading from '../components/Heading'
-import { getUsers } from '../features/users/userThunks'
+import { deleteUser, getUsers } from '../features/users/userThunks'
+import { MdDelete, MdModeEdit, MdCancel } from 'react-icons/md'
+import { AiFillCheckCircle } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
+import { userEdit } from '../features/users/userSlice'
 
 const Users = () => {
   const dispatch = useDispatch()
+
+  const { allUsers } = useSelector(store => store.user)
 
   useEffect(() => {
     dispatch(getUsers())
   }, [])
 
+  const deleteHandler = user_id => {
+    dispatch(deleteUser(user_id))
+
+    setTimeout(() => {
+      dispatch(getUsers())
+    }, 100)
+  }
+
+  const editHandler = user => {
+    dispatch(userEdit(user))
+  }
+
   return (
     <section>
       <Heading text='users' span='all'></Heading>
 
-      <div>
-        <article className='py-8 grid bg-gray-50 gap-x-12 gap-y-4 place-items-center place-content-center grid-cols-[repeat(5,max-content)]'>
-          <h3 className='font-bold capitalize'>id</h3>
-          <h3 className='font-bold capitalize'>name</h3>
-          <h3 className='font-bold capitalize'>email</h3>
-          <h3 className='font-bold capitalize'>admin</h3>
-          <h3 className='font-bold capitalize'>actions</h3>
+      <table className='w-full max-w-2xl text-center mx-auto'>
+        <thead>
+          <tr className='bg-gray-400 text-white'>
+            <th className='capitalize'>id</th>
+            <th className='capitalize'>name</th>
+            <th className='capitalize'>email</th>
+            <th className='capitalize'>admin</th>
+            <th className='capitalize'>actions</th>
+          </tr>
+        </thead>
+        <tbody className='[&>*:nth-child(even)]:bg-gray-200 [&>*:nth-child(odd)]:bg-gray-100'>
+          {allUsers.map((user, index) => {
+            const { user_id, name, email, isAdmin } = user
 
-          <h3 className=''>1</h3>
-          <h3 className=''>iqbal singh</h3>
-          <h3 className=''>iqbal.kang@yahoo.com</h3>
-          <h3 className=''>admin</h3>
-          <h3 className=''>actions</h3>
-        </article>
-        {/* <article className='grid bg-gray-50 grid-cols-5'>
-          <h3 className=''>1</h3>
-          <h3 className=''>iqbal singh</h3>
-          <h3 className=''>iqbal.kang@yahoo.com</h3>
-          <h3 className=''>admin</h3>
-          <h3 className=''>actions</h3>
-        </article> */}
-      </div>
+            return (
+              <tr key={index}>
+                <td>{user_id}</td>
+                <td className='capitalize p-2'>{name}</td>
+                <td>{email}</td>
+                <td align='center'>
+                  {isAdmin === 1 ? (
+                    <AiFillCheckCircle className='text-green-600' />
+                  ) : (
+                    <MdCancel className='text-red-400' />
+                  )}
+                </td>
+                <td align='center'>
+                  <MdDelete
+                    className='hover:text-red-400 duration-100 cursor-pointer inline-block'
+                    onClick={deleteHandler.bind(null, user_id)}
+                  />
+                  <Link to='/admin/edit'>
+                    <MdModeEdit
+                      className='hover:text-red-400 duration-100 cursor-pointer inline-block ml-2'
+                      onClick={editHandler.bind(null, user)}
+                    />
+                  </Link>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     </section>
   )
 }

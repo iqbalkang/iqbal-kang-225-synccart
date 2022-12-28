@@ -80,7 +80,6 @@ const cartSlice = createSlice({
         state.isLoading = true
       })
       .addCase(postCart.fulfilled, (state, { payload }) => {
-        console.log(payload)
         state.isLoading = false
         state.cart = payload
       })

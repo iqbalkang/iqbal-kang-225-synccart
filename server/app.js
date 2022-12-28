@@ -7,7 +7,7 @@ const productsRouter = require('./routes/productsRouter')
 const usersRouter = require('./routes/usersRouter')
 const cartRouter = require('./routes/cartRouter')
 const globalErrorHandler = require('./middlewares/globalErrorHandler')
-const isAuthenticated = require('./middlewares/isAuthenticared')
+const isAuthenticated = require('./middlewares/isAuthenticated')
 
 const app = express()
 

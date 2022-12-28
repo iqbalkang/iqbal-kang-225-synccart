@@ -50,4 +50,29 @@ const getUsers = asyncHandler(async (req, res, next) => {
   })
 })
 
-module.exports = { postLogin, postRegister, getUsers }
+const deleteUser = asyncHandler(async (req, res, next) => {
+  const user_id = req.params.id
+  await User.deleteOne(user_id)
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    message: 'user was deleted',
+  })
+})
+
+const updateUser = asyncHandler(async (req, res, next) => {
+  const user_id = req.params.id
+  const { name, email, admin: isAdmin } = req.body
+
+  console.log(user_id, name, email, isAdmin)
+
+  const user = new User(name, email, null, isAdmin)
+  await user.updateOne(user_id)
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    message: 'user was updated',
+  })
+})
+
+module.exports = { postLogin, postRegister, getUsers, deleteUser, updateUser }
