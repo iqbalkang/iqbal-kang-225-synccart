@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const AppError = require('./utils/AppError')
 const { StatusCodes } = require('http-status-codes')
-const db = require('./utils/connectSQL')
 
 const productsRouter = require('./routes/productsRouter')
 const usersRouter = require('./routes/usersRouter')
@@ -15,12 +14,6 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-
-const load = async () => {
-  const user = await db.query('select * from users')
-  console.log(user[0])
-}
-load()
 
 app.use('/api/v1/products', productsRouter)
 app.use('/api/v1/users', usersRouter)
