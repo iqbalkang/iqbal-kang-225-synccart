@@ -23,6 +23,24 @@ const FormRow = ({ input, onChange, value }) => {
       </div>
     )
 
+  if (input.type === 'file')
+    return (
+      <div className={`${input.type === 'checkbox' && 'flex gap-2'}`}>
+        <label htmlFor={input.label} className='capitalize block mb-1'>
+          {input.labelText ? input.labelText : input.label}
+        </label>
+        <input
+          type={input.type}
+          className={`bg-gray-200 p-2 outline-gray-300 w-[400px] ${input.type === 'checkbox' && 'w-auto'}`}
+          placeholder={input.placeholder}
+          name={input.label}
+          id={input.label}
+          onChange={onChange}
+          required={true}
+        />
+      </div>
+    )
+
   return (
     <div className={`${input.type === 'checkbox' && 'flex gap-2'}`}>
       <label htmlFor={input.label} className='capitalize block mb-1'>
@@ -35,7 +53,7 @@ const FormRow = ({ input, onChange, value }) => {
         name={input.label}
         id={input.label}
         onChange={onChange}
-        value={input.type === 'file' ? '' : value}
+        value={value}
         checked={value}
         disabled={userId === user_id && input.type === 'checkbox'}
       />

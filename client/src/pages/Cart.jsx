@@ -40,11 +40,12 @@ const Cart = () => {
       <div className='grid items-start lg:grid-cols-[1fr,300px]'>
         <div className='divide-y-2 max-w-xl py-8'>
           {cart.length === 0 && <h3 className='text-2xl'>Your cart is empty</h3>}
+
           {cart.map((item, index) => {
             const product = products.find(product => product.product_id === item.productId)
             return (
               <article key={index} className='flex gap-4 items-center py-4'>
-                <img src={product?.image} alt='' className='w-24' />
+                <img src={product?.image} alt='' className='w-24 h-20 object-cover' />
                 <div className='grow'>
                   <Link to={`/product/${product.product_id}`}>
                     <h3 className='w-40 hover:underline'>{product?.name}</h3>

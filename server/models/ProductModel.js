@@ -7,19 +7,32 @@ class Product {
     this.description = description
     this.brand = brand
     this.category = category
-    this.image = '/image/testing'
-    this.num_reviews = num_reviews || 0
-    this.rating = rating || 0
+    this.image = image
+    // this.num_reviews = num_reviews || 0
+    // this.rating = rating || 0
     this.stock = stock
   }
 
   static async find() {
-    const [products] = await db.execute('SELECT * FROM products')
+    const sqlQuery = `SELECT products.*, avg(reviews.rating) as rating, count(reviews.rating) as num_reviews
+                      FROM products
+                      LEFT JOIN reviews
+                      ON products.product_id = reviews.product_id
+                      GROUP BY products.product_id
+                      `
+    const [products] = await db.execute(sqlQuery)
     return products
   }
 
   static async findById(id) {
-    const [product] = await db.execute(`SELECT * FROM products where product_id = '${id}'`)
+    const sqlQuery = `SELECT products.*, avg(reviews.rating) as rating, count(reviews.rating) as num_reviews
+                      FROM products
+                      LEFT JOIN reviews
+                      ON products.product_id = reviews.product_id
+                      WHERE products.product_id = '${id}'
+                      GROUP BY products.product_id`
+
+    const [product] = await db.execute(sqlQuery)
     return product[0]
   }
 

@@ -6,7 +6,7 @@ const ProductDetail = ({ product }) => {
 
   return (
     <article className='grid xl:grid-cols-2 gap-8'>
-      <img src={image} alt={name} />
+      <img src={image} alt={name} className='h-80 w-full object-cover' />
 
       <div className='mt-4'>
         <h3 className='mb-2 text-3xl'>{name}</h3>

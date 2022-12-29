@@ -34,10 +34,13 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
 })
 
 const postProduct = asyncHandler(async (req, res, next) => {
-  const { name, price, description, brand, category, image, num_reviews, rating, stock } = req.body
+  const { name, price, description, brand, category, stock } = req.body
+  const image = `/images/${req.file.filename}`
 
   if (!name || !price || !description || !brand || !category || !stock)
     return next(new AppError('Missing fields', StatusCodes.BAD_REQUEST))
+
+  console.log(image)
 
   const product = new Product(name, price, description, brand, category, image, num_reviews, rating, stock)
   await product.save()

@@ -11,7 +11,9 @@ const Products = () => {
   const { products } = useSelector(store => store.products)
 
   useEffect(() => {
-    dispatch(getAllProducts())
+    setTimeout(() => {
+      dispatch(getAllProducts())
+    }, 100)
   }, [])
 
   const deleteHandler = product_id => {

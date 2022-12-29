@@ -25,7 +25,7 @@ const Landing = () => {
     <section className='text-black'>
       <Heading span='latest' text='products' />
 
-      <div className='flex justify-center gap-8 md:gap-12 flex-wrap'>{productList}</div>
+      <div className='flex justify-center lg:justify-start gap-8 md:gap-12 flex-wrap'>{productList}</div>
     </section>
   )
 }

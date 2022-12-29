@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BsFillCartFill } from 'react-icons/bs'
 import { IoLogIn } from 'react-icons/io5'
 import { AiFillDownCircle } from 'react-icons/ai'
@@ -10,6 +10,7 @@ import { logout } from '../features/users/userSlice'
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const buttonRef = useRef()
   const adminRef = useRef()
@@ -46,6 +47,7 @@ const Navbar = () => {
   const logoutHandler = () => {
     removeLocalStorage('user')
     dispatch(logout())
+    navigate('/')
   }
 
   return (

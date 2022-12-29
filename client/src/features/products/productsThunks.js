@@ -15,6 +15,7 @@ export const getSingleProduct = createAsyncThunk('product/getSingleProduct', asy
     const { data } = await customFetch.get(`/products/${productId}`)
     return data.product
   } catch (error) {
+    console.log(error)
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })

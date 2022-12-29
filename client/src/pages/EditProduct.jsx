@@ -12,11 +12,7 @@ const EditProduct = () => {
   const navigate = useNavigate()
 
   const { productEdit: product } = useSelector(store => store.products)
-  const { name, description, stock, category, brand, price } = product ?? {}
-
-  // const products = useSelector(store => store.products)
-  // console.log(products)
-  // const { name, description, stock, category, brand, price } = products?.productEdit
+  const { name, description, stock, category, brand, price, image } = product ?? {}
 
   const [values, setValues] = useState({
     name: name || '',
@@ -28,6 +24,8 @@ const EditProduct = () => {
     image: '',
   })
 
+  console.log(values)
+
   const onChangeHandler = e =>
     setValues(prevValues => {
       const { name, value } = e.target
@@ -36,6 +34,8 @@ const EditProduct = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    for (const [keys, enteredValue] of Object.entries(values)) if (enteredValue === '') return
 
     const formData = new FormData()
 
@@ -48,10 +48,6 @@ const EditProduct = () => {
     navigate('/admin/products')
   }
 
-  const handle = e => {
-    console.log(e.target.files[0])
-  }
-
   const productInputs = inputs.map((input, index) => (
     <FormRow key={index} input={input} onChange={onChangeHandler} value={values[input.label]} />
   ))
@@ -62,10 +58,6 @@ const EditProduct = () => {
 
       <form className='flex flex-col gap-4 items-center' onSubmit={handleSubmit} encType='multipart/form-data'>
         {productInputs}
-        {/* <input type='file' onChange={handle} /> */}
-        {/* <button className='bg-black p-4 max-w-lg w-[400px] text-white' onClick={handle2}>
-          handle
-        </button> */}
         <button className='bg-black p-4 max-w-lg w-[400px] text-white'>Add Product</button>
       </form>
     </section>
