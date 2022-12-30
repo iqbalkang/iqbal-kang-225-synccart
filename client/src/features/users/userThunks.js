@@ -57,3 +57,44 @@ export const updateUser = createAsyncThunk('user/updateUser', async (body, thunk
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })
+
+export const postUserAddress = createAsyncThunk('user/postUserAddress', async (body, thunkAPI) => {
+  try {
+    const { data } = await customFetch.post(`/users/address`, body, {
+      headers: {
+        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+      },
+    })
+    return data.message
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message)
+  }
+})
+
+export const updateUserAddress = createAsyncThunk('user/updateUserAddress', async (body, thunkAPI) => {
+  try {
+    const { data } = await customFetch.put(`/users/address`, body, {
+      headers: {
+        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+      },
+    })
+    return data.message
+  } catch (error) {
+    console.log(error.response.data.message)
+    return thunkAPI.rejectWithValue(error.response.data.message)
+  }
+})
+
+export const getUserAddress = createAsyncThunk('user/getUserAddress', async (id, thunkAPI) => {
+  try {
+    const { data } = await customFetch.get(`/users/address`, {
+      headers: {
+        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+      },
+    })
+    return data.address
+  } catch (error) {
+    console.log(error)
+    return thunkAPI.rejectWithValue(error.response.data.message)
+  }
+})

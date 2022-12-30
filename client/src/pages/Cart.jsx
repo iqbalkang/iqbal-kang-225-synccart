@@ -11,7 +11,6 @@ const Cart = () => {
   const dispatch = useDispatch()
   const { cart } = useSelector(store => store.cart)
   const { products } = useSelector(store => store.products)
-  // useEffect(() => {}, [])
 
   const renderOptions = count => {
     return [...Array(count)].map((_, index) => {

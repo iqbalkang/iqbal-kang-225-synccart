@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { postLogin, postRegister, getUsers, deleteUser, updateUser } from './userThunks'
+import { postLogin, postRegister, getUsers, deleteUser, updateUser, getUserAddress } from './userThunks'
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage'
 
 const initialState = {
@@ -86,6 +86,19 @@ const productSlice = createSlice({
         console.log(payload)
       })
       .addCase(updateUser.rejected, (state, { payload }) => {
+        state.isLoading = false
+        state.isError = payload
+      })
+
+      // GET USER ADDRESS
+      .addCase(getUserAddress.pending, (state, { payload }) => {
+        state.isLoading = true
+      })
+      .addCase(getUserAddress.fulfilled, (state, { payload }) => {
+        state.isLoading = false
+        state.userAddress = payload
+      })
+      .addCase(getUserAddress.rejected, (state, { payload }) => {
         state.isLoading = false
         state.isError = payload
       })
