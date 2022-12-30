@@ -41,7 +41,6 @@ class User {
                       isAdmin = '${this.isAdmin}'
                       WHERE user_id = ${user_id}`
     const [user] = await db.execute(sqlQuery)
-    console.log(user)
   }
 
   static createJWT(id, email) {

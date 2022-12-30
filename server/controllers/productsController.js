@@ -39,10 +39,7 @@ const postProduct = asyncHandler(async (req, res, next) => {
 
   if (!name || !price || !description || !brand || !category || !stock)
     return next(new AppError('Missing fields', StatusCodes.BAD_REQUEST))
-
-  console.log(image)
-
-  const product = new Product(name, price, description, brand, category, image, num_reviews, rating, stock)
+  const product = new Product(name, price, description, brand, category, image, stock)
   await product.save()
 })
 

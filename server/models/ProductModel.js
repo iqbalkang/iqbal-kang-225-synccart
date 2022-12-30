@@ -1,15 +1,13 @@
 const db = require('../utils/connectSQL')
 
 class Product {
-  constructor(name, price, description, brand, category, image, num_reviews, rating, stock) {
+  constructor(name, price, description, brand, category, image, stock) {
     this.name = name
     this.price = price
     this.description = description
     this.brand = brand
     this.category = category
     this.image = image
-    // this.num_reviews = num_reviews || 0
-    // this.rating = rating || 0
     this.stock = stock
   }
 
@@ -37,19 +35,9 @@ class Product {
   }
 
   async save() {
-    const sqlQuery = `INSERT INTO products (name, price, description, brand, category, image, num_reviews, rating, stock)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    const values = [
-      this.name,
-      this.price,
-      this.description,
-      this.brand,
-      this.category,
-      this.image,
-      this.num_reviews,
-      this.rating,
-      this.stock,
-    ]
+    const sqlQuery = `INSERT INTO products (name, price, description, brand, category, image, stock)
+                      VALUES (?, ?, ?, ?, ?, ?, ?)`
+    const values = [this.name, this.price, this.description, this.brand, this.category, this.image, this.stock]
     return await db.execute(sqlQuery, values)
   }
 

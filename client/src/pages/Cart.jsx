@@ -46,7 +46,7 @@ const Cart = () => {
               <article key={index} className='flex gap-4 items-center py-4'>
                 <img src={product?.image} alt='' className='w-24 h-20 object-cover' />
                 <div className='grow'>
-                  <Link to={`/product/${product.product_id}`}>
+                  <Link to={`/product/${product?.product_id}`}>
                     <h3 className='w-40 hover:underline'>{product?.name}</h3>
                   </Link>
                 </div>

@@ -83,7 +83,6 @@ const productSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, { payload }) => {
         state.isLoading = false
-        console.log(payload)
       })
       .addCase(updateUser.rejected, (state, { payload }) => {
         state.isLoading = false

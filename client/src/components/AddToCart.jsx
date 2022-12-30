@@ -3,8 +3,10 @@ import { addToCart as addToCartReducer } from '../features/cart/cartSlice'
 import { useDispatch } from 'react-redux'
 import { getCartProduct } from '../features/cart/cartThunks'
 import { selectedQuantityHandler } from '../features/cart/cartSlice'
+import { useNavigate } from 'react-router-dom'
 
 const AddToCart = ({ product }) => {
+  const navigate = useNavigate()
   const { product_id: id, stock, price } = product
 
   const dispatch = useDispatch()
@@ -21,6 +23,7 @@ const AddToCart = ({ product }) => {
 
   const addToCartHandler = () => {
     dispatch(getCartProduct(id))
+    navigate('/cart')
   }
 
   return (

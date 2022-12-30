@@ -16,8 +16,6 @@ const exportDb = async () => {
 
     const adminUserId = createdUsers[0]._id
 
-    console.log(adminUserId)
-
     const productsWithId = products.map(product => {
       return { ...product, user: adminUserId }
     })

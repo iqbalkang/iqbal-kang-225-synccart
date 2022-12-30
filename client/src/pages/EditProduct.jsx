@@ -24,8 +24,6 @@ const EditProduct = () => {
     image: '',
   })
 
-  console.log(values)
-
   const onChangeHandler = e =>
     setValues(prevValues => {
       const { name, value } = e.target

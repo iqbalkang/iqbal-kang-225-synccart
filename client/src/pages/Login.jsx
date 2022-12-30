@@ -32,7 +32,7 @@ const Login = () => {
   }
 
   useEffect(() => {
-    if (user) navigate('/')
+    if (user) return navigate('/')
     dispatch(postCart(cart))
   }, [user])
 

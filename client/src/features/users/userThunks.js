@@ -80,7 +80,6 @@ export const updateUserAddress = createAsyncThunk('user/updateUserAddress', asyn
     })
     return data.message
   } catch (error) {
-    console.log(error.response.data.message)
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })
@@ -94,7 +93,6 @@ export const getUserAddress = createAsyncThunk('user/getUserAddress', async (id,
     })
     return data.address
   } catch (error) {
-    console.log(error)
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })

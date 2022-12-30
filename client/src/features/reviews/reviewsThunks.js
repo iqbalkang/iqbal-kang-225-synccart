@@ -17,7 +17,6 @@ export const postReview = createAsyncThunk('user/postReview', async (body, thunk
         authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
       },
     })
-    console.log(data.message)
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
