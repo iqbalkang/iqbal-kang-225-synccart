@@ -41,6 +41,20 @@ class Product {
     return await db.execute(sqlQuery, values)
   }
 
+  async updateOne(product_id) {
+    console.log(product_id)
+    const sqlQuery = `UPDATE products SET
+                      name = '${this.name}, 
+                      price = '${this.price}, 
+                      description = '${this.description}, 
+                      brand = '${this.brand}, 
+                      category = '${this.category}, 
+                      image = '${this.image}, 
+                      stock = '${this.stock})
+                      WHERE product_id = '${product_id}'`
+    return await db.execute(sqlQuery, values)
+  }
+
   static async deleteOne(id) {
     return await db.execute(`DELETE FROM products WHERE product_id = '${id}'`)
   }

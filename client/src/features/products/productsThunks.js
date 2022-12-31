@@ -6,6 +6,7 @@ export const getAllProducts = createAsyncThunk('product/getAllProducts', async (
     const { data } = await customFetch.get(`/products`)
     return data.products
   } catch (error) {
+    // console.log(error.response.data.message)
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })
@@ -20,6 +21,7 @@ export const getSingleProduct = createAsyncThunk('product/getSingleProduct', asy
 })
 
 export const postProduct = createAsyncThunk('user/postProduct', async (body, thunkAPI) => {
+  console.log(body)
   try {
     const { data } = await customFetch.post(`/products`, body, {
       headers: {
@@ -40,6 +42,21 @@ export const deleteProduct = createAsyncThunk('user/deleteProduct', async (produ
     })
     return data.message
   } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message)
+  }
+})
+
+export const editProduct = createAsyncThunk('user/editProduct', async ({ product_id, values }, thunkAPI) => {
+  console.log(values)
+  try {
+    const { data } = await customFetch.put(`/products/${product_id}`, values, {
+      headers: {
+        authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+      },
+    })
+    // return data.message
+  } catch (error) {
+    console.log(error.response.data.message)
     return thunkAPI.rejectWithValue(error.response.data.message)
   }
 })

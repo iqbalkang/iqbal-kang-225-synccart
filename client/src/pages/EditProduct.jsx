@@ -3,7 +3,7 @@ import Heading from '../components/Heading'
 import FormRow from '../components/FormRow'
 import inputs from '../utils/productInputs'
 import { useDispatch, useSelector } from 'react-redux'
-import { postProduct } from '../features/products/productsThunks'
+import { editProduct, postProduct } from '../features/products/productsThunks'
 import { useNavigate } from 'react-router-dom'
 import { resetEditProduct } from '../features/products/productsSlice'
 
@@ -11,8 +11,8 @@ const EditProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { productEdit: product } = useSelector(store => store.products)
-  const { name, description, stock, category, brand, price, image } = product ?? {}
+  const { productEdit: product, isEditing } = useSelector(store => store.products)
+  const { name, description, stock, category, brand, price, image, product_id } = product ?? {}
 
   const [values, setValues] = useState({
     name: name || '',
@@ -41,7 +41,10 @@ const EditProduct = () => {
       formData.append(key, value)
     }
 
-    dispatch(postProduct(formData))
+    console.log(formData.append('image', values.image))
+
+    if (isEditing) dispatch(editProduct({ values, product_id }))
+    else dispatch(postProduct(formData))
     dispatch(resetEditProduct())
     navigate('/admin/products')
   }

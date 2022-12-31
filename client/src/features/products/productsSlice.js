@@ -8,6 +8,7 @@ const initialState = {
   productDetails: null,
   isError: null,
   productEdit: null,
+  isEditing: false,
 }
 
 const productSlice = createSlice({
@@ -16,9 +17,11 @@ const productSlice = createSlice({
   reducers: {
     productEdit(state, { payload }) {
       state.productEdit = payload
+      state.isEditing = true
     },
     resetEditProduct(state, { payload }) {
       state.productEdit = null
+      state.isEditing = false
     },
   },
   extraReducers: builder => {

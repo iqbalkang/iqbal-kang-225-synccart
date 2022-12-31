@@ -43,4 +43,19 @@ const postProduct = asyncHandler(async (req, res, next) => {
   await product.save()
 })
 
-module.exports = { getAllProducts, getSingleProduct, deleteProduct, postProduct }
+const editProduct = asyncHandler(async (req, res, next) => {
+  const product_id = req.params.id
+  const { name, price, description, brand, category, stock } = req.body
+  // const image = `/images/${req.file.filename}`
+
+  console.log(req.body)
+
+  if (!name || !price || !description || !brand || !category || !stock)
+    return next(new AppError('Missing fields', StatusCodes.BAD_REQUEST))
+
+  const product = new Product(name, price, description, brand, category, image, stock)
+  console.log(product)
+  await product.updateOne(product_id)
+})
+
+module.exports = { getAllProducts, getSingleProduct, deleteProduct, postProduct, editProduct }
