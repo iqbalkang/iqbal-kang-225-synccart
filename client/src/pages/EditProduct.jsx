@@ -41,10 +41,12 @@ const EditProduct = () => {
       formData.append(key, value)
     }
 
-    console.log(formData.append('image', values.image))
-
-    if (isEditing) dispatch(editProduct({ values, product_id }))
-    else dispatch(postProduct(formData))
+    if (isEditing) {
+      const data = [...formData.entries()]
+      const formObj = {}
+      data.forEach((item, index) => (formObj[item[0]] = item[1]))
+      dispatch(editProduct({ formObj, product_id }))
+    } else dispatch(postProduct(formData))
     dispatch(resetEditProduct())
     navigate('/admin/products')
   }

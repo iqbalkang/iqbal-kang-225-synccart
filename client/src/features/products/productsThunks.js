@@ -21,7 +21,6 @@ export const getSingleProduct = createAsyncThunk('product/getSingleProduct', asy
 })
 
 export const postProduct = createAsyncThunk('user/postProduct', async (body, thunkAPI) => {
-  console.log(body)
   try {
     const { data } = await customFetch.post(`/products`, body, {
       headers: {
@@ -46,10 +45,9 @@ export const deleteProduct = createAsyncThunk('user/deleteProduct', async (produ
   }
 })
 
-export const editProduct = createAsyncThunk('user/editProduct', async ({ product_id, values }, thunkAPI) => {
-  console.log(values)
+export const editProduct = createAsyncThunk('user/editProduct', async ({ product_id, formObj }, thunkAPI) => {
   try {
-    const { data } = await customFetch.put(`/products/${product_id}`, values, {
+    const { data } = await customFetch.put(`/products/${product_id}`, formObj, {
       headers: {
         authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
       },
