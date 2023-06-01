@@ -11,7 +11,7 @@ const Home = () => {
         <Navbar />
       </header>
 
-      <main className='container  mx-auto text-gray-500 p-8 sm:px-0 sm:py-8'>
+      <main className='container mx-auto text-gray-500 p-8 sm:px-0 sm:py-8'>
         <Outlet />
       </main>
     </>
