@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const { StatusCodes } = require('http-status-codes');
-const AppError = require('../utils/appError');
+const AppError = require('../utils/AppError');
 const Product = require('../models/ProductModel');
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
