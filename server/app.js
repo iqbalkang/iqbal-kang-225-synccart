@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 // Production
-app.use(express.static(path.join(__dirname, '../client/build')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/users', usersRouter);
