@@ -10,7 +10,7 @@ This is a full-stack application designed to provide a practical learning experi
 
 <h2>🚀 Hosted At</h2>
 
-[http://synccart.wiki/](http://synccart.wiki/)
+[http://synccart.site/](http://synccart.site/)
 
 
 <h2>💻 Built with</h2>
