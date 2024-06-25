@@ -5,6 +5,7 @@ const Product = require('../models/ProductModel');
 
 const getAllProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find();
+  console.log(products);
 
   res.status(StatusCodes.OK).json({
     status: 'success',
